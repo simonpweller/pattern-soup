@@ -1,0 +1,7 @@
+{
+  "name": "pattern-soup",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
