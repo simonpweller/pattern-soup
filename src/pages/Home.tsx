@@ -14,17 +14,16 @@ import {
 import {add} from 'ionicons/icons';
 import React, {useState} from 'react';
 import Add from '../components/Add';
-import {v4 as uuid} from 'uuid';
+import {usePatterns} from '../hooks/usePatterns';
 
-type Pattern = {
+export type Pattern = {
     id: string,
     name: string,
 }
 
 const Home: React.FC = () => {
     const [showAdd, setShowAdd] = useState(false);
-    const [patterns, setPatterns] = useState<Pattern[]>([]);
-    const addPattern = (name: string) => setPatterns([{id: uuid(), name}, ...patterns]);
+    const {patterns, addPattern} = usePatterns();
 
     return (
         <IonPage>
