@@ -22,7 +22,7 @@ import {usePatterns} from './hooks/usePatterns';
 import PatternDetail from './pages/PatternDetail';
 
 const App: React.FC = () => {
-    const {patterns, getPattern, addPattern, deletePattern} = usePatterns();
+    const {patterns, getPattern, addPattern, updatePattern, deletePattern} = usePatterns();
 
     return (
         <IonApp>
@@ -34,7 +34,9 @@ const App: React.FC = () => {
                         path="/patterns/:id"
                         render={routeProps => <PatternDetail {...routeProps}
                                                              pattern={getPattern(routeProps.match.params.id)}
-                                                             deletePattern={deletePattern}/>
+                                                             deletePattern={deletePattern}
+                                                             updatePattern={updatePattern}
+                        />
                         }
                         exact={true}
                     />
