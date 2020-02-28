@@ -18,13 +18,26 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
+import {usePatterns} from './hooks/usePatterns';
+import PatternDetail from './pages/PatternDetail';
 
 const App: React.FC = () => {
+    const {patterns, getPattern, addPattern, deletePattern} = usePatterns();
+
     return (
         <IonApp>
             <IonReactRouter>
                 <IonRouterOutlet>
-                    <Route path="/home" component={Home} exact={true}/>
+                    <Route path="/home" render={() => <Home patterns={patterns} addPattern={addPattern}/>}
+                           exact={true}/>
+                    <Route
+                        path="/patterns/:id"
+                        render={routeProps => <PatternDetail {...routeProps}
+                                                             pattern={getPattern(routeProps.match.params.id)}
+                                                             deletePattern={deletePattern}/>
+                        }
+                        exact={true}
+                    />
                     <Route exact path="/" render={() => <Redirect to="/home"/>}/>
                 </IonRouterOutlet>
             </IonReactRouter>

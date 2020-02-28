@@ -14,10 +14,18 @@ export const usePatterns = () => {
         loadPatterns()
     }, []);
 
+    const getPattern = (id: string) => patterns.find(p => p.id === id);
+
     const addPattern = (name: string) => {
-        let newPatterns = [{id: uuid(), name}, ...patterns];
+        let newPatterns = [{id: uuid(), name, notes: ''}, ...patterns];
         setPatterns(newPatterns);
-        return storePatterns(newPatterns);
+        storePatterns(newPatterns);
+    };
+
+    const deletePattern = (id: string) => {
+        let newPatterns = patterns.filter(p => p.id !== id);
+        setPatterns(newPatterns);
+        storePatterns(newPatterns);
     };
 
     async function storePatterns(patterns: Pattern[]) {
@@ -31,5 +39,5 @@ export const usePatterns = () => {
         }
     }
 
-    return {addPattern, patterns}
+    return {patterns, getPattern, addPattern, deletePattern}
 };

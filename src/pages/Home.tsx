@@ -14,16 +14,20 @@ import {
 import {add} from 'ionicons/icons';
 import React, {useState} from 'react';
 import Add from '../components/Add';
-import {usePatterns} from '../hooks/usePatterns';
 
 export type Pattern = {
     id: string,
     name: string,
+    notes: string,
 }
 
-const Home: React.FC = () => {
+type HomeProps = {
+    patterns: Pattern[],
+    addPattern: (name: string) => void,
+}
+
+const Home: React.FC<HomeProps> = ({patterns, addPattern}) => {
     const [showAdd, setShowAdd] = useState(false);
-    const {patterns, addPattern} = usePatterns();
 
     return (
         <IonPage>
@@ -35,7 +39,7 @@ const Home: React.FC = () => {
             <IonContent>
                 <IonList>
                     {patterns.map(pattern =>
-                        <IonItem key={pattern.id}>{pattern.name}</IonItem>
+                        <IonItem key={pattern.id} routerLink={`/patterns/${pattern.id}`}>{pattern.name}</IonItem>
                     )}
                 </IonList>
                 <IonFab vertical={"bottom"} horizontal={"center"}>
