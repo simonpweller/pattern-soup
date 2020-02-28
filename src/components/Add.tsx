@@ -1,24 +1,13 @@
 import React, {useState} from 'react';
-import {
-    IonButton,
-    IonContent,
-    IonHeader,
-    IonInput,
-    IonItem,
-    IonLabel,
-    IonPage,
-    IonTitle,
-    IonToolbar
-} from '@ionic/react';
-import {RouteComponentProps} from 'react-router';
+import {IonButton, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonTitle, IonToolbar} from '@ionic/react';
 
-type AddProps = RouteComponentProps & {addPattern: (name: string) => void}
+type AddProps = {addPattern: (name: string) => void, close: () => void}
 
-const Add: React.FC<AddProps> = ({history, addPattern}) => {
+const Add: React.FC<AddProps> = ({addPattern, close}) => {
     const [name, setName] = useState('');
 
     return (
-        <IonPage>
+        <>
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>Add Pattern</IonTitle>
@@ -30,16 +19,16 @@ const Add: React.FC<AddProps> = ({history, addPattern}) => {
                         <IonLabel position={"floating"}>Name</IonLabel>
                         <IonInput type={"text"} value={name} onIonChange={e => setName(e.detail.value || '')}/>
                     </IonItem>
-                    <IonButton expand={"block"} type={"submit"} color={"success"} onClick={() => {
+                    <IonButton expand={"block"} type={"button"} color={"success"} onClick={() => {
                         addPattern(name);
-                        history.goBack();
+                        close();
                     }}>Confirm</IonButton>
-                    <IonButton expand={"block"} type={"button"} color={"danger"} onClick={() => history.goBack()}>
+                    <IonButton expand={"block"} type={"button"} color={"danger"} onClick={close}>
                         Cancel
                     </IonButton>
                 </form>
             </IonContent>
-        </IonPage>
+        </>
     );
 };
 
