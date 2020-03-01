@@ -43,6 +43,13 @@ export const usePatterns = () => {
         storePatterns(newPatterns);
     };
 
+    const movePattern = (from: number, to: number) => {
+        const patternsWithoutMovedPattern = [...patterns.slice(0, from), ...patterns.slice(from + 1)];
+        const newPatterns = [...patternsWithoutMovedPattern.slice(0, to), patterns[from], ...patternsWithoutMovedPattern.slice(to)];
+        setPatterns(newPatterns);
+        storePatterns(newPatterns);
+    };
+
     async function storePatterns(patterns: Pattern[]) {
         await Storage.set({key: STORAGE_KEY, value: JSON.stringify(patterns)});
     }
@@ -54,5 +61,5 @@ export const usePatterns = () => {
         }
     }
 
-    return {patterns, getPattern, addPattern, updatePattern, deletePattern}
+    return {patterns, getPattern, addPattern, updatePattern, deletePattern, movePattern}
 };

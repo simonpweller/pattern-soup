@@ -23,7 +23,7 @@ import PatternDetail from './pages/PatternDetail';
 import NewPattern from './pages/NewPattern';
 
 const App: React.FC = () => {
-    const {patterns, getPattern, addPattern, updatePattern, deletePattern} = usePatterns();
+    const {patterns, getPattern, addPattern, updatePattern, deletePattern, movePattern} = usePatterns();
 
     return (
         <IonApp>
@@ -32,7 +32,7 @@ const App: React.FC = () => {
                     <Route
                         path="/home"
                         exact={true}
-                        render={() => <Home patterns={patterns} deletePattern={deletePattern}/>}
+                        render={() => <Home patterns={patterns} deletePattern={deletePattern} movePattern={movePattern}/>}
                     />
                     <Route
                         path="/patterns/new"
