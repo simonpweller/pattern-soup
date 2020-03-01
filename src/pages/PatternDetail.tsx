@@ -1,8 +1,8 @@
 import React from 'react';
 import {IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/react';
-import {Pattern, PatternData} from './Home';
 import {RouterProps} from 'react-router';
 import PatternForm from '../components/PatternForm';
+import {Pattern, PatternData} from '../hooks/usePatterns';
 
 type PatternDetailProps = RouterProps & {
     pattern: Pattern | undefined,
@@ -21,7 +21,7 @@ const PatternDetail: React.FC<PatternDetailProps> = ({pattern = {}, updatePatter
         </IonHeader>
         <IonContent>
             <PatternForm
-                patternData={{name: pattern.name || '', notes: pattern.notes || ''}}
+                patternData={{name: pattern.name || '', hanger: pattern.hanger || '', notes: pattern.notes || ''}}
                 save={patternData => {
                     updatePattern(pattern.id!, patternData);
                     history.goBack();

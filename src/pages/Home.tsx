@@ -16,13 +16,7 @@ import {
 import {add, trash} from 'ionicons/icons';
 import React from 'react';
 import {Link} from 'react-router-dom';
-
-export type Pattern = PatternData & {id: string}
-
-export type PatternData = {
-    name: string,
-    notes: string,
-}
+import {Pattern} from '../hooks/usePatterns';
 
 type HomeProps = {
     patterns: Pattern[],

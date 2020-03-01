@@ -1,11 +1,18 @@
 import {useEffect, useState} from 'react';
 import {v4 as uuid} from 'uuid';
-import {Pattern, PatternData} from '../pages/Home';
 import {Plugins} from '@capacitor/core';
 
 const { Storage } = Plugins;
 
 const STORAGE_KEY = 'patterns';
+
+export type Pattern = PatternData & { id: string }
+
+export type PatternData = {
+    name: string,
+    hanger: string,
+    notes: string,
+}
 
 export const usePatterns = () => {
     const [patterns, setPatterns] = useState<Pattern[]>([]);
