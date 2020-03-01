@@ -1,10 +1,10 @@
 import React from 'react';
 import {IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/react';
-import {RouterProps} from 'react-router';
+import {RouteComponentProps} from 'react-router';
 import PatternForm from '../components/PatternForm';
 import {Pattern, PatternData} from '../hooks/usePatterns';
 
-type PatternDetailProps = RouterProps & {
+type PatternDetailProps = RouteComponentProps & {
     pattern: Pattern | undefined,
     updatePattern: (id: string, patternData: PatternData) => void,
 }

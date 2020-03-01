@@ -1,10 +1,10 @@
 import React from 'react';
 import {IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/react';
 import PatternForm from '../components/PatternForm';
-import {RouterProps} from 'react-router';
+import {RouteComponentProps} from 'react-router';
 import {PatternData} from '../hooks/usePatterns';
 
-type NewPatternProps = RouterProps & {addPattern: (patternData: PatternData) => void}
+type NewPatternProps = RouteComponentProps & {addPattern: (patternData: PatternData) => void}
 
 const NewPattern: React.FC<NewPatternProps> = ({history, addPattern}) =>
     <IonPage>
