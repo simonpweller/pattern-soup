@@ -8,6 +8,7 @@ import {
     IonItemOption,
     IonItemOptions,
     IonItemSliding,
+    IonLabel,
     IonList,
     IonPage,
     IonTitle,
@@ -34,8 +35,12 @@ const Home: React.FC<HomeProps> = ({patterns, deletePattern}) =>
             <IonList>
                 {patterns.map(pattern =>
                     <IonItemSliding key={pattern.id}>
-                        <IonItem routerLink={`/patterns/${pattern.id}`}>{pattern.name}</IonItem>
-
+                        <IonItem routerLink={`/patterns/${pattern.id}`}>
+                            <IonLabel>
+                                <h2>{pattern.name}</h2>
+                                {pattern.hanger.length ? <p>{`Hanger: ${pattern.hanger}`}</p> : ''}
+                            </IonLabel>
+                        </IonItem>
                         <IonItemOptions side="end">
                             <IonItemOption color="danger" onClick={() => deletePattern(pattern.id)}>
                                 <IonIcon slot="icon-only" icon={trash} />
