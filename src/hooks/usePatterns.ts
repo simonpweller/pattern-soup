@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {v4 as uuid} from 'uuid';
-import {Pattern} from '../pages/Home';
+import {Pattern, PatternData} from '../pages/Home';
 import {Plugins} from '@capacitor/core';
 
 const { Storage } = Plugins;
@@ -16,15 +16,16 @@ export const usePatterns = () => {
 
     const getPattern = (id: string) => patterns.find(p => p.id === id);
 
-    const addPattern = (name: string) => {
-        const newPatterns = [{id: uuid(), name, notes: ''}, ...patterns];
+    const addPattern = (patternData: PatternData) => {
+        const newPatterns = [{id: uuid(), ...patternData}, ...patterns];
         setPatterns(newPatterns);
         storePatterns(newPatterns);
     };
 
-    const updatePattern = (id: string, pattern: Pattern) => {
+    const updatePattern = (id: string, patternData: PatternData) => {
         const newPatterns = [...patterns];
-        newPatterns[newPatterns.findIndex(p => p.id === id)] = pattern;
+        const indexOfPatternToUpdate = patterns.findIndex(p => p.id === id);
+        newPatterns[indexOfPatternToUpdate] = {...(newPatterns[indexOfPatternToUpdate]), ...patternData};
         setPatterns(newPatterns);
         storePatterns(newPatterns);
     };

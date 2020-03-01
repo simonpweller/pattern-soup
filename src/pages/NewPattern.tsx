@@ -1,29 +1,26 @@
 import React from 'react';
 import {IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from '@ionic/react';
-import {Pattern, PatternData} from './Home';
-import {RouterProps} from 'react-router';
+import {PatternData} from './Home';
 import PatternForm from '../components/PatternForm';
+import {RouterProps} from 'react-router';
 
-type PatternDetailProps = RouterProps & {
-    pattern: Pattern | undefined,
-    updatePattern: (id: string, patternData: PatternData) => void,
-}
+type NewPatternProps = RouterProps & {addPattern: (patternData: PatternData) => void}
 
-const PatternDetail: React.FC<PatternDetailProps> = ({pattern = {}, updatePattern, history}) =>
+const NewPattern: React.FC<NewPatternProps> = ({history, addPattern}) =>
     <IonPage>
         <IonHeader>
             <IonToolbar>
                 <IonButtons slot={"start"}>
                     <IonBackButton defaultHref={"/home"}/>
                 </IonButtons>
-                <IonTitle>{pattern.name}</IonTitle>
+                <IonTitle>New pattern</IonTitle>
             </IonToolbar>
         </IonHeader>
         <IonContent>
             <PatternForm
-                patternData={{name: pattern.name || '', notes: pattern.notes || ''}}
+                patternData={{name: '', notes: ''}}
                 save={patternData => {
-                    updatePattern(pattern.id!, patternData);
+                    addPattern(patternData);
                     history.goBack();
                 }}
                 cancel={history.goBack}
@@ -31,4 +28,4 @@ const PatternDetail: React.FC<PatternDetailProps> = ({pattern = {}, updatePatter
         </IonContent>
     </IonPage>;
 
-export default PatternDetail;
+export default NewPattern;

@@ -20,25 +20,29 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import {usePatterns} from './hooks/usePatterns';
 import PatternDetail from './pages/PatternDetail';
+import NewPattern from './pages/NewPattern';
 
 const App: React.FC = () => {
-    const {patterns, getPattern, addPattern, updatePattern, deletePattern} = usePatterns();
+    const {patterns, getPattern, addPattern, updatePattern} = usePatterns();
 
     return (
         <IonApp>
             <IonReactRouter>
                 <IonRouterOutlet>
-                    <Route path="/home" render={() => <Home patterns={patterns} addPattern={addPattern}/>}
-                           exact={true}/>
+                    <Route
+                        path="/home"
+                        exact={true}
+                        render={() => <Home patterns={patterns}/>}
+                    />
+                    <Route
+                        path="/patterns/new"
+                        exact={true}
+                        render={routeProps => <NewPattern {...routeProps} addPattern={addPattern} />}
+                    />
                     <Route
                         path="/patterns/:id"
-                        render={routeProps => <PatternDetail {...routeProps}
-                                                             pattern={getPattern(routeProps.match.params.id)}
-                                                             deletePattern={deletePattern}
-                                                             updatePattern={updatePattern}
-                        />
-                        }
                         exact={true}
+                        render={routeProps => <PatternDetail {...routeProps} pattern={getPattern(routeProps.match.params.id)} updatePattern={updatePattern}/>}
                     />
                     <Route exact path="/" render={() => <Redirect to="/home"/>}/>
                 </IonRouterOutlet>

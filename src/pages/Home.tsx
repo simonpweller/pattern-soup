@@ -6,53 +6,46 @@ import {
     IonIcon,
     IonItem,
     IonList,
-    IonModal,
     IonPage,
     IonTitle,
     IonToolbar
 } from '@ionic/react';
 import {add} from 'ionicons/icons';
-import React, {useState} from 'react';
-import Add from '../components/Add';
+import React from 'react';
+import {Link} from 'react-router-dom';
 
-export type Pattern = {
-    id: string,
+export type Pattern = PatternData & {id: string}
+
+export type PatternData = {
     name: string,
     notes: string,
 }
 
 type HomeProps = {
     patterns: Pattern[],
-    addPattern: (name: string) => void,
 }
 
-const Home: React.FC<HomeProps> = ({patterns, addPattern}) => {
-    const [showAdd, setShowAdd] = useState(false);
-
-    return (
-        <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Pattern Soup</IonTitle>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent>
-                <IonList>
-                    {patterns.map(pattern =>
-                        <IonItem key={pattern.id} routerLink={`/patterns/${pattern.id}`}>{pattern.name}</IonItem>
-                    )}
-                </IonList>
-                <IonFab vertical={"bottom"} horizontal={"center"}>
-                    <IonFabButton onClick={() => setShowAdd(true)}>
-                        <IonIcon icon={add} />
+const Home: React.FC<HomeProps> = ({patterns}) =>
+    <IonPage>
+        <IonHeader>
+            <IonToolbar>
+                <IonTitle>Pattern Soup</IonTitle>
+            </IonToolbar>
+        </IonHeader>
+        <IonContent>
+            <IonList>
+                {patterns.map(pattern =>
+                    <IonItem key={pattern.id} routerLink={`/patterns/${pattern.id}`}>{pattern.name}</IonItem>
+                )}
+            </IonList>
+            <IonFab vertical={"bottom"} horizontal={"center"}>
+                <Link to="/patterns/new">
+                    <IonFabButton>
+                        <IonIcon icon={add}/>
                     </IonFabButton>
-                </IonFab>
-            </IonContent>
-            <IonModal isOpen={showAdd} >
-                <Add addPattern={addPattern} close={() => setShowAdd(false)}/>
-            </IonModal>
-        </IonPage>
-    );
-};
+                </Link>
+            </IonFab>
+        </IonContent>
+    </IonPage>;
 
 export default Home;
