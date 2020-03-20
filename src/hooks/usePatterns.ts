@@ -16,6 +16,12 @@ export type PatternData = {
 
 export const usePatterns = () => {
     const [patterns, setPatterns] = useState<Pattern[]>([]);
+    const [searchText, setSearchText] = useState('');
+    const filteredPatterns = patterns.filter(pattern =>
+        pattern.name.toLowerCase().includes(searchText.toLowerCase())
+            || pattern.notes.toLowerCase().includes(searchText.toLowerCase())
+            || (pattern.hanger?.toString() || '').includes(searchText)
+    );
 
     useEffect(() => {
         async function loadPatterns() {
@@ -71,5 +77,5 @@ export const usePatterns = () => {
         await Storage.set({key: STORAGE_KEY, value: JSON.stringify(patterns)});
     }
 
-    return {patterns, getPattern, addPattern, updatePattern, deletePattern, movePattern, sortPatterns}
+    return {patterns: filteredPatterns, getPattern, addPattern, updatePattern, deletePattern, movePattern, sortPatterns, searchText, setSearchText}
 };

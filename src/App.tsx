@@ -23,7 +23,7 @@ import PatternDetail from './pages/PatternDetail';
 import NewPattern from './pages/NewPattern';
 
 const App: React.FC = () => {
-    const {patterns, getPattern, addPattern, updatePattern, deletePattern, movePattern, sortPatterns} = usePatterns();
+    const {patterns, getPattern, addPattern, updatePattern, deletePattern, movePattern, sortPatterns, searchText, setSearchText} = usePatterns();
 
     return (
         <IonApp>
@@ -31,9 +31,15 @@ const App: React.FC = () => {
                 <IonRouterOutlet>
                     <Route
                         path="/home"
-                        exact={true}
-                        render={() => <Home patterns={patterns} deletePattern={deletePattern} movePattern={movePattern} sortPatterns={sortPatterns}/>}
-                    />
+                        exact={true}>
+                        <Home patterns={patterns}
+                              deletePattern={deletePattern}
+                              movePattern={movePattern}
+                              sortPatterns={sortPatterns}
+                              searchText={searchText}
+                              setSearchText={setSearchText}
+                        />
+                    </Route>
                     <Route
                         path="/patterns/new"
                         exact={true}
