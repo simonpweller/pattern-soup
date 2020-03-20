@@ -50,10 +50,7 @@ const Home: React.FC<HomeProps> = ({patterns, deletePattern, movePattern}) =>
                                 <IonReorder/>
                             </IonItem>
                             <IonItemOptions side="end">
-                                <IonItemOption color="danger" onClick={() => {
-                                    console.log('click');
-                                    deletePattern(pattern.id);
-                                }}>
+                                <IonItemOption color="danger" onClick={() => deletePattern(pattern.id)}>
                                     <IonIcon slot="icon-only" icon={trash} onClick={() => console.log()}/>
                                 </IonItemOption>
                             </IonItemOptions>
@@ -61,14 +58,14 @@ const Home: React.FC<HomeProps> = ({patterns, deletePattern, movePattern}) =>
                     )}
                 </IonReorderGroup>
             </IonList>
-            <IonFab vertical={"bottom"} horizontal={"center"}>
-                <Link to="/patterns/new">
-                    <IonFabButton>
-                        <IonIcon icon={add}/>
-                    </IonFabButton>
-                </Link>
-            </IonFab>
         </IonContent>
+        <IonFab vertical={"bottom"} horizontal={"center"}>
+            <Link to="/patterns/new">
+                <IonFabButton>
+                    <IonIcon icon={add}/>
+                </IonFabButton>
+            </Link>
+        </IonFab>
     </IonPage>;
 
 export default Home;
