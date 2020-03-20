@@ -17,7 +17,7 @@ const PatternForm: React.FC<PatternFormProps> = ({patternData, save, cancel}) =>
             </IonItem>
             <IonItem>
                 <IonLabel position={"floating"}>Hanger</IonLabel>
-                <IonInput type={"text"} value={hanger} onIonChange={e => setHanger(e.detail.value || '')}/>
+                <IonInput type={"number"} value={hanger} onIonChange={e => e.detail.value && setHanger(Number(e.detail.value))}/>
             </IonItem>
             <IonItem>
                 <IonLabel position={"floating"}>Notes</IonLabel>

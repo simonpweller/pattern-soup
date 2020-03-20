@@ -53,13 +53,13 @@ const Home: React.FC<HomeProps> = ({patterns, deletePattern, movePattern, sortPa
                             <IonItem routerLink={`/patterns/${pattern.id}`}>
                                 <IonLabel>
                                     <h2>{pattern.name}</h2>
-                                    {pattern.hanger.length ? <p>{`Hanger: ${pattern.hanger}`}</p> : ''}
+                                    {pattern.hanger ? <p>{`Hanger: ${pattern.hanger}`}</p> : ''}
                                 </IonLabel>
                                 <IonReorder/>
                             </IonItem>
                             <IonItemOptions side="end">
                                 <IonItemOption color="danger" onClick={() => deletePattern(pattern.id)}>
-                                    <IonIcon slot="icon-only" icon={trash} onClick={() => console.log()}/>
+                                    <IonIcon slot="icon-only" icon={trash}/>
                                 </IonItemOption>
                             </IonItemOptions>
                         </IonItemSliding>

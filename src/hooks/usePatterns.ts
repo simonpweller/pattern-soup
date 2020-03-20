@@ -10,7 +10,7 @@ export type Pattern = PatternData & { id: string }
 
 export type PatternData = {
     name: string,
-    hanger: string,
+    hanger: number | undefined,
     notes: string,
 }
 
@@ -18,6 +18,18 @@ export const usePatterns = () => {
     const [patterns, setPatterns] = useState<Pattern[]>([]);
 
     useEffect(() => {
+        async function loadPatterns() {
+            const storedPatterns = await Storage.get({key: STORAGE_KEY});
+            if (storedPatterns?.value) {
+                setPatterns(JSON.parse(storedPatterns.value).map(cleanUpHangers));
+            }
+        }
+
+        // TODO: Remove once hangers have been cleaned up
+        function cleanUpHangers(p: Pattern) {
+            return {...p, hanger: p.hanger ? (Number(p.hanger) || undefined) : undefined};
+        }
+
         loadPatterns()
     }, []);
 
@@ -46,7 +58,7 @@ export const usePatterns = () => {
         setAndStore(newPatterns);    };
 
     const sortPatterns = () => {
-        const newPatterns = [...patterns].sort((a, b) => a.hanger.localeCompare(b.hanger));
+        const newPatterns = [...patterns].sort((a, b) => (a.hanger || Infinity) - (b.hanger || Infinity));
         setAndStore(newPatterns);
     };
 
@@ -57,13 +69,6 @@ export const usePatterns = () => {
 
     async function storePatterns(patterns: Pattern[]) {
         await Storage.set({key: STORAGE_KEY, value: JSON.stringify(patterns)});
-    }
-
-    async function loadPatterns() {
-        const storedPatterns = await Storage.get({key: STORAGE_KEY});
-        if (storedPatterns?.value) {
-            setPatterns(JSON.parse(storedPatterns.value));
-        }
     }
 
     return {patterns, getPattern, addPattern, updatePattern, deletePattern, movePattern, sortPatterns}

@@ -21,7 +21,7 @@ const PatternDetail: React.FC<PatternDetailProps> = ({pattern = {}, updatePatter
         </IonHeader>
         <IonContent>
             <PatternForm
-                patternData={{name: pattern.name || '', hanger: pattern.hanger || '', notes: pattern.notes || ''}}
+                patternData={{name: pattern.name || '', hanger: pattern.hanger, notes: pattern.notes || ''}}
                 save={patternData => {
                     updatePattern(pattern.id!, patternData);
                     history.goBack();

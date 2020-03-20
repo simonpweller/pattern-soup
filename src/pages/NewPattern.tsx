@@ -18,7 +18,7 @@ const NewPattern: React.FC<NewPatternProps> = ({history, addPattern}) =>
         </IonHeader>
         <IonContent>
             <PatternForm
-                patternData={{name: '', hanger: '', notes: ''}}
+                patternData={{name: '', hanger: undefined, notes: ''}}
                 save={patternData => {
                     addPattern(patternData);
                     history.goBack();
