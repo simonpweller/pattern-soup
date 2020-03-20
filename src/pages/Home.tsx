@@ -1,4 +1,6 @@
 import {
+    IonButton,
+    IonButtons,
     IonContent,
     IonFab,
     IonFabButton,
@@ -16,7 +18,7 @@ import {
     IonTitle,
     IonToolbar
 } from '@ionic/react';
-import {add, trash} from 'ionicons/icons';
+import {add, albumsOutline, trash} from 'ionicons/icons';
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Pattern} from '../hooks/usePatterns';
@@ -25,12 +27,18 @@ type HomeProps = {
     patterns: Pattern[],
     deletePattern: (id: string) => void,
     movePattern: (from: number, to: number) => void,
+    sortPatterns: () => void,
 }
 
-const Home: React.FC<HomeProps> = ({patterns, deletePattern, movePattern}) =>
+const Home: React.FC<HomeProps> = ({patterns, deletePattern, movePattern, sortPatterns}) =>
     <IonPage>
         <IonHeader>
             <IonToolbar>
+                <IonButtons slot="primary">
+                    <IonButton onClick={sortPatterns}>
+                        <IonIcon slot="icon-only" icon={albumsOutline}/>
+                    </IonButton>
+                </IonButtons>
                 <IonTitle>Pattern Soup</IonTitle>
             </IonToolbar>
         </IonHeader>

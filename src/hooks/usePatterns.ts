@@ -25,30 +25,35 @@ export const usePatterns = () => {
 
     const addPattern = (patternData: PatternData) => {
         const newPatterns = [{id: uuid(), ...patternData}, ...patterns];
-        setPatterns(newPatterns);
-        storePatterns(newPatterns);
+        setAndStore(newPatterns);
     };
 
     const updatePattern = (id: string, patternData: PatternData) => {
         const newPatterns = [...patterns];
         const indexOfPatternToUpdate = patterns.findIndex(p => p.id === id);
         newPatterns[indexOfPatternToUpdate] = {...(newPatterns[indexOfPatternToUpdate]), ...patternData};
-        setPatterns(newPatterns);
-        storePatterns(newPatterns);
+        setAndStore(newPatterns);
     };
 
     const deletePattern = (id: string) => {
         const newPatterns = patterns.filter(p => p.id !== id);
-        setPatterns(newPatterns);
-        storePatterns(newPatterns);
+        setAndStore(newPatterns);
     };
 
     const movePattern = (from: number, to: number) => {
         const patternsWithoutMovedPattern = [...patterns.slice(0, from), ...patterns.slice(from + 1)];
         const newPatterns = [...patternsWithoutMovedPattern.slice(0, to), patterns[from], ...patternsWithoutMovedPattern.slice(to)];
+        setAndStore(newPatterns);    };
+
+    const sortPatterns = () => {
+        const newPatterns = [...patterns].sort((a, b) => a.hanger.localeCompare(b.hanger));
+        setAndStore(newPatterns);
+    };
+
+    function setAndStore(newPatterns: Pattern[]) {
         setPatterns(newPatterns);
         storePatterns(newPatterns);
-    };
+    }
 
     async function storePatterns(patterns: Pattern[]) {
         await Storage.set({key: STORAGE_KEY, value: JSON.stringify(patterns)});
@@ -61,5 +66,5 @@ export const usePatterns = () => {
         }
     }
 
-    return {patterns, getPattern, addPattern, updatePattern, deletePattern, movePattern}
+    return {patterns, getPattern, addPattern, updatePattern, deletePattern, movePattern, sortPatterns}
 };
